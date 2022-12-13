@@ -76,7 +76,7 @@ function orderWasPayed($response, $password) {
     if ($order_id == 0)
         return false;
     // check payment state
-    if (($response['type'] == 'PURCHASE_BY_QR' || $response['type'] == 'PURCHASE' || $response['type'] == 'AUTHORIZE') && $response['state'] == 'APPROVED')
+    if (($response->type != 'PURCHASE_BY_QR' && $response->type != 'PURCHASE' && $response->type != 'AUTHORIZE') || $response->state != 'APPROVED')
         return false;
     // check server signature
     $tmp_response = json_decode(json_encode($response), true);
